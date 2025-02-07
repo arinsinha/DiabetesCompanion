@@ -96,7 +96,7 @@
 
 .stButton > button:hover {
     background: linear-gradient(#8E44AD 0%, #270533 100%);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(155, 89, 182, 0.3);
     color: white; /* Corrected */
 }
