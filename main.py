@@ -67,11 +67,18 @@ with col1:
                 # Display results
                 st.markdown("### Results")
                 if prediction == 1:
-                    st.error(f"⚠️ High risk of diabetes (Probability: {probability:.2%})")
+                    risk_percentage = probability * 100
+                    st.error(f"⚠️ High risk of diabetes (Probability: {risk_percentage:.1f}%)")
                 else:
-                    st.success(f"✅ Low risk of diabetes (Probability: {1-probability:.2%})")
+                    risk_percentage = (1 - probability) * 100
+                    st.success(f"✅ Low risk of diabetes (Probability: {risk_percentage:.1f}%)")
 
-                st.info("""
+                # Add prediction details
+                st.info(f"""
+                    **Prediction Details:**
+                    - Risk Level: {"High" if prediction == 1 else "Low"}
+                    - Confidence: {max(probability, 1-probability):.1%}
+
                     Note: This is a preliminary screening tool. Please consult with a 
                     healthcare professional for proper medical advice and diagnosis.
                 """)
