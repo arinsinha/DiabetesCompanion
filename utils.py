@@ -13,11 +13,11 @@ def create_feature_plot(data, feature):
     fig = px.histogram(data, x=feature, color='Outcome',
                       marginal='box',
                       title=f'Distribution of {feature} by Diabetes Outcome',
-                      color_discrete_sequence=['#2E86C1', '#E74C3C'])
+                      color_discrete_sequence=['#9B59B6', '#E74C3C'])
     fig.update_layout(
-        plot_bgcolor='white',
-        paper_bgcolor='white',
-        font={'color': '#262730'}
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
+        font={'color': '#E0E0E0'}
     )
     return fig
 

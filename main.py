@@ -40,17 +40,18 @@ except Exception as e:
 st.markdown("""
     <div class='main-header'>
         <h1>🏥 Diabetes Prediction Assistant</h1>
-        <p style='font-size: 1.2rem; color: #666; max-width: 800px; margin: 0 auto;'>
-            Welcome to our advanced diabetes risk assessment platform. Using machine learning and AI, 
-            we analyze your health metrics to provide personalized risk assessments and expert insights. 
-            Our system combines a sophisticated prediction model with an AI health assistant to offer 
-            comprehensive diabetes management support and education.
+        <p style='font-size: 1.2rem; max-width: 800px; margin: 0 auto;'>
+            Welcome to our advanced diabetes risk assessment platform. Using state-of-the-art machine learning 
+            and artificial intelligence, we analyze your health metrics to provide personalized risk assessments 
+            and expert insights. Our comprehensive system combines a sophisticated KNN-based prediction model 
+            with an AI health assistant to offer detailed diabetes risk analysis, management guidance, and 
+            preventive recommendations tailored to your health profile.
         </p>
     </div>
 """, unsafe_allow_html=True)
 
 # Risk Assessment Section
-st.markdown("<div class='metric-container'>", unsafe_allow_html=True)
+st.markdown("<div class='section-container'>", unsafe_allow_html=True)
 st.header("📊 Risk Assessment Model")
 
 # Input form
@@ -93,8 +94,8 @@ with st.form("prediction_form"):
 st.markdown("</div>", unsafe_allow_html=True)
 
 # AI Health Assistant Section
-st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
-st.header("💡 AI Health Assistant")
+st.markdown("<div class='section-container'>", unsafe_allow_html=True)
+st.header("🤖 AI Health Assistant")
 
 if chatbot_available:
     st.markdown("""
@@ -116,7 +117,7 @@ else:
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Model Performance Section
-st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+st.markdown("<div class='section-container'>", unsafe_allow_html=True)
 st.header("🎯 Model Performance")
 if 'model_metrics' in st.session_state:
     metrics = st.session_state.model_metrics
@@ -136,13 +137,20 @@ if 'model_metrics' in st.session_state:
     fig = px.line(k_accuracy_df, x='K Value', y='Accuracy',
                   title='Model Accuracy vs K Value',
                   markers=True)
+    fig.update_layout(
+        plot_bgcolor='rgba(0,0,0,0)',
+        paper_bgcolor='rgba(0,0,0,0)',
+        font={'color': '#E0E0E0'},
+        xaxis=dict(gridcolor='rgba(155, 89, 182, 0.1)'),
+        yaxis=dict(gridcolor='rgba(155, 89, 182, 0.1)'),
+    )
     fig.add_vline(x=metrics['best_k'], line_dash="dash",
                   annotation_text=f"Best K = {metrics['best_k']}")
     st.plotly_chart(fig, use_container_width=True)
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Data Visualization Section
-st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
+st.markdown("<div class='section-container'>", unsafe_allow_html=True)
 st.header("📈 Data Insights")
 data = load_data()
 
@@ -151,13 +159,21 @@ selected_feature = st.selectbox(
     get_model_features()
 )
 
-st.plotly_chart(create_feature_plot(data, selected_feature), use_container_width=True)
+fig = create_feature_plot(data, selected_feature)
+fig.update_layout(
+    plot_bgcolor='rgba(0,0,0,0)',
+    paper_bgcolor='rgba(0,0,0,0)',
+    font={'color': '#E0E0E0'},
+    xaxis=dict(gridcolor='rgba(155, 89, 182, 0.1)'),
+    yaxis=dict(gridcolor='rgba(155, 89, 182, 0.1)'),
+)
+st.plotly_chart(fig, use_container_width=True)
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Footer
 st.markdown("""
     <div class='footer'>
         <p>Made with ❤️ by Arin Ved Sinha | Data source: PIMA Indians Diabetes Dataset</p>
-        <p style='font-size: 0.9rem; color: #888;'>© 2024 Diabetes Prediction Assistant. All rights reserved.</p>
+        <p style='font-size: 0.9rem;'>© 2024 Diabetes Prediction Assistant. All rights reserved.</p>
     </div>
 """, unsafe_allow_html=True)
