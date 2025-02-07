@@ -72,6 +72,25 @@
 }
 
 /* Button styling */
+/* Get Prediction Button specific styling */
+.st-key-FormSubmitter-prediction_form-Get-Prediction button {
+    width: 200px !important;
+    margin: 20px auto !important;
+    background: linear-gradient(135deg, #9B59B6 0%, #8E44AD 100%) !important;
+    color: white !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+.st-key-FormSubmitter-prediction_form-Get-Prediction button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(155, 89, 182, 0.4) !important;
+    background: linear-gradient(135deg, #8E44AD 0%, #6C3483 100%) !important;
+}
+
+/* General button styling */
 .stButton {
     display: flex;
     justify-content: center;
