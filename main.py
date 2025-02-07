@@ -16,13 +16,19 @@ st.set_page_config(
 with open('assets/style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-# Initialize session state
-if 'chatbot' not in st.session_state:
-    st.session_state.chatbot = DiabetesChatbot()
+# Initialize session state for predictor
 if 'predictor' not in st.session_state:
     st.session_state.predictor = DiabetesPredictor()
     data = load_data()
     accuracy = st.session_state.predictor.train(data)
+
+# Try to initialize chatbot
+try:
+    if 'chatbot' not in st.session_state:
+        st.session_state.chatbot = DiabetesChatbot()
+    chatbot_available = True
+except Exception as e:
+    chatbot_available = False
 
 # Main header
 st.title("🏥 Diabetes Prediction Assistant")
@@ -36,7 +42,7 @@ col1, col2 = st.columns([2, 1])
 
 with col1:
     st.header("📊 Prediction Model")
-    
+
     # Input form
     with st.form("prediction_form"):
         features = {}
@@ -46,25 +52,25 @@ with col1:
                 min_value=0.0,
                 help=f"Input value for {feature}"
             )
-        
+
         submit_button = st.form_submit_button("Get Prediction")
-        
+
         if submit_button:
             # Validate inputs
             values = list(features.values())
             is_valid, error_message = validate_input(values)
-            
+
             if is_valid:
                 # Make prediction
                 prediction, probability = st.session_state.predictor.predict(values)
-                
+
                 # Display results
                 st.markdown("### Results")
                 if prediction == 1:
                     st.error(f"⚠️ High risk of diabetes (Probability: {probability:.2%})")
                 else:
                     st.success(f"✅ Low risk of diabetes (Probability: {1-probability:.2%})")
-                
+
                 st.info("""
                     Note: This is a preliminary screening tool. Please consult with a 
                     healthcare professional for proper medical advice and diagnosis.
@@ -74,17 +80,31 @@ with col1:
 
 with col2:
     st.header("💬 AI Health Assistant")
-    st.markdown("""
-        Ask any questions about diabetes, its prevention, 
-        symptoms, or management.
-    """)
-    
-    # Chat interface
-    user_input = st.text_input("Your question:")
-    if st.button("Ask"):
-        if user_input:
-            response = st.session_state.chatbot.get_response(user_input)
-            st.markdown(f"**Response:**\n{response}")
+
+    if chatbot_available:
+        st.markdown("""
+            Ask any questions about diabetes, its prevention, 
+            symptoms, or management.
+        """)
+
+        # Chat interface
+        user_input = st.text_input("Your question:")
+        if st.button("Ask"):
+            if user_input:
+                response = st.session_state.chatbot.get_response(user_input)
+                st.markdown(f"**Response:**\n{response}")
+    else:
+        st.warning("""
+            The AI Health Assistant is currently unavailable. 
+            Please ask an administrator to configure the Gemini API key to enable this feature.
+        """)
+        if st.button("Configure Gemini API"):
+            st.info("""
+                To enable the AI chatbot:
+                1. Go to https://makersuite.google.com/app/apikey
+                2. Create a new API key
+                3. Set up the key in Streamlit's secrets management system
+            """)
 
 # Data Visualization Section
 st.header("📈 Data Insights")

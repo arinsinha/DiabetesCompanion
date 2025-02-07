@@ -5,7 +5,7 @@ import streamlit as st
 
 def load_data():
     """Load and preprocess the diabetes dataset"""
-    data = pd.read_csv('diabetes.csv')
+    data = pd.read_csv('attached_assets/diabetes.csv')
     return data
 
 def create_feature_plot(data, feature):
@@ -32,18 +32,18 @@ def validate_input(values):
     """Validate input values"""
     if any(v < 0 for v in values):
         return False, "All values must be non-negative"
-    
+
     validations = {
         'Glucose': (0, 200),
         'BloodPressure': (0, 130),
         'BMI': (0, 70),
         'Age': (0, 120)
     }
-    
+
     for i, feature in enumerate(get_model_features()):
         if feature in validations:
             min_val, max_val = validations[feature]
             if not min_val <= values[i] <= max_val:
                 return False, f"{feature} must be between {min_val} and {max_val}"
-    
+
     return True, ""
