@@ -60,8 +60,7 @@ with st.form("prediction_form"):
     for feature in get_model_features():
         features[feature] = st.number_input(
             f"Enter {feature}",
-            min_value=0.0,
-            help=f"Input value for {feature}"
+            min_value=0.0
         )
 
     submit_button = st.form_submit_button("Get Prediction")
