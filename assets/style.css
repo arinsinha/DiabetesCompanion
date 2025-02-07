@@ -71,13 +71,17 @@
 
 /* Button styling */
 .stButton {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
 .stButton > button {
     width: 50%;
-    margin: 0 auto;
-    display: inline-block;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 8px;
     background: linear-gradient(135deg, #9B59B6 0%, #8E44AD 100%);
     color: white;
