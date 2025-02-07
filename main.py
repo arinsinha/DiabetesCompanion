@@ -179,3 +179,6 @@ st.markdown("""
         <p style='font-size: 0.9rem;'>© 2024 Diabetes Prediction Assistant. All rights reserved.</p>
     </div>
 """, unsafe_allow_html=True)
+
+if __name__ == "__main__":
+    st.run(app, host='0.0.0.0', port=8501)
