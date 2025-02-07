@@ -20,7 +20,12 @@ with open('assets/style.css') as f:
 if 'predictor' not in st.session_state:
     st.session_state.predictor = DiabetesPredictor()
     data = load_data()
-    accuracy = st.session_state.predictor.train(data)
+    accuracy, accuracies, best_k = st.session_state.predictor.train(data)
+    st.session_state.model_metrics = {
+        'accuracy': accuracy,
+        'accuracies': accuracies,
+        'best_k': best_k
+    }
 
 # Try to initialize chatbot
 try:
@@ -112,6 +117,32 @@ with col2:
                 2. Create a new API key
                 3. Set up the key in Streamlit's secrets management system
             """)
+
+# Add this before the feature visualization section
+st.header("🎯 Model Performance")
+if 'model_metrics' in st.session_state:
+    metrics = st.session_state.model_metrics
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.metric("Best K Value", metrics['best_k'])
+    with col2:
+        st.metric("Model Accuracy", f"{metrics['accuracy']:.2%}")
+
+    # Plot K values vs Accuracy
+    k_values = range(1, 21)
+    k_accuracy_df = pd.DataFrame({
+        'K Value': k_values,
+        'Accuracy': metrics['accuracies']
+    })
+
+    fig = px.line(k_accuracy_df, x='K Value', y='Accuracy',
+                  title='Model Accuracy vs K Value',
+                  markers=True)
+    fig.add_vline(x=metrics['best_k'], line_dash="dash",
+                  annotation_text=f"Best K = {metrics['best_k']}")
+    st.plotly_chart(fig, use_container_width=True)
+
 
 # Data Visualization Section
 st.header("📈 Data Insights")
