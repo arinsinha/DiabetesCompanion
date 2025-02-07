@@ -95,10 +95,12 @@
 }
 
 .stButton > button:hover {
-    background: linear-gradient(135deg, #8E44AD 0%, #9B59B6 100%);
+    background: linear-gradient(#8E44AD 0%, #270533 100%);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(155, 89, 182, 0.3);
+    color: white; /* Corrected */
 }
+
 
 /* Chat styling */
 .chat-message {
@@ -191,25 +193,3 @@ div[data-testid="stVerticalBlock"] > div.section-container + div:empty {
     height: 0 !important;
 }
 
-/* Hide form submission hints and question marks */
-.st-emotion-cache-1q0wz0g,
-.st-emotion-cache-16idsys,
-div[data-baseweb="tooltip"],
-button[aria-label="Show/hide help"] {
-    display: none !important;
-}
-
-.st-emotion-cache-6qob1r,
-.st-emotion-cache-ue6h4q {
-    display: none !important;
-}
-
-/* Hide form hints */
-small[data-testid="stFormSubmitButtonHelpText"],
-[data-testid="stFormSubmitButton"] ~ div,
-.st-emotion-cache-1cwt8z2,
-.st-emotion-cache-1umf6ph,
-.st-emotion-cache-1prua9e,
-.css-1vbkxwb {
-    display: none !important;
-}
