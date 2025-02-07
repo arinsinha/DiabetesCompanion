@@ -99,8 +99,11 @@ st.header("🤖 AI Health Assistant")
 
 if chatbot_available:
     st.markdown("""
-        Get expert insights about diabetes prevention, management, 
-        and lifestyle recommendations. Ask any health-related questions below.
+        Our AI Health Assistant is powered by advanced natural language processing to provide 
+        comprehensive information about diabetes. Get expert insights about prevention strategies, 
+        daily management tips, dietary recommendations, exercise guidelines, and understanding 
+        risk factors. Feel free to ask any questions about diabetes symptoms, treatment options, 
+        lifestyle modifications, or general health concerns.
     """)
 
     user_input = st.text_input("Your question:", placeholder="e.g., What are the early signs of diabetes?")
