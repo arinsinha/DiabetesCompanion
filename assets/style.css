@@ -26,7 +26,7 @@
 }
 
 .main-header p {
-    color: #E0E0E0;
+    color: #262730;
     line-height: 1.6;
 }
 
@@ -53,8 +53,8 @@
 
 .stTextInput > div > div > input,
 .stNumberInput > div > div > input {
-    background-color: #363636 !important;
-    color: #FFFFFF !important;
+    background-color: #FFFFFF !important;
+    color: #262730 !important;
     border: 1px solid rgba(155, 89, 182, 0.3) !important;
 }
 
@@ -81,7 +81,7 @@
     padding: 1rem;
     margin: 0.5rem 0;
     border-radius: 8px;
-    background: rgba(54, 54, 54, 0.7);
+    background: rgba(240, 242, 246, 0.7);
     border-left: 3px solid #9B59B6;
 }
 
@@ -91,7 +91,7 @@
     border-radius: 10px;
     background: rgba(155, 89, 182, 0.1);
     border-left: 4px solid #9B59B6;
-    color: #E0E0E0;
+    color: #262730;
 }
 
 /* Metrics styling */
@@ -115,7 +115,7 @@
     padding: 3rem 0;
     margin-top: 4rem;
     border-top: 1px solid rgba(155, 89, 182, 0.2);
-    color: #A0A0A0;
+    color: #262730;
 }
 
 .footer p {
