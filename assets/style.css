@@ -164,7 +164,16 @@ button[kind="help"] {
 .st-emotion-cache-1kyxreq:empty,
 .st-emotion-cache-1544g2k:empty,
 .st-emotion-cache-1n76uvr:empty,
-.st-emotion-cache-t1wise > div > div > div > div:empty {
+.st-emotion-cache-t1wise > div > div > div > div:empty,
+div.section-container:empty {
+    display: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 0 !important;
+}
+
+/* Remove extra divs after sections */
+div[data-testid="stVerticalBlock"] > div.section-container + div:empty {
     display: none !important;
     margin: 0 !important;
     padding: 0 !important;
