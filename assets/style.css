@@ -1,0 +1,54 @@
+/* Global styles */
+.stApp {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+/* Custom container styling */
+.main-container {
+    padding: 2rem;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Form styling */
+.stTextInput, .stNumberInput {
+    margin-bottom: 1rem;
+}
+
+/* Button styling */
+.stButton>button {
+    width: 100%;
+    border-radius: 5px;
+    background-color: #2E86C1;
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+}
+
+/* Results container */
+.results-container {
+    padding: 1.5rem;
+    border-radius: 8px;
+    background: #F8F9FA;
+    margin-top: 2rem;
+}
+
+/* Chat container */
+.chat-container {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 2rem;
+    height: 400px;
+    overflow-y: auto;
+}
+
+/* Charts */
+.chart-container {
+    margin: 2rem 0;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
