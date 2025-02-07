@@ -156,7 +156,20 @@ button[kind="help"] {
     padding: 0 !important;
 }
 
-/* Hide form submission hints */
-.st-emotion-cache-1q0wz0g {
+/* Hide form submission hints and question marks */
+.st-emotion-cache-1q0wz0g,
+.st-emotion-cache-16idsys,
+div[data-baseweb="tooltip"],
+button[aria-label="Show/hide help"] {
+    display: none !important;
+}
+
+.st-emotion-cache-6qob1r,
+.st-emotion-cache-ue6h4q {
+    display: none !important;
+}
+
+/* Hide form hints */
+small[data-testid="stFormSubmitButtonHelpText"] {
     display: none !important;
 }
