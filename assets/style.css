@@ -58,6 +58,21 @@
     border: 1px solid rgba(155, 89, 182, 0.3) !important;
 }
 
+/* Hide tooltips and question marks */
+[data-baseweb="tooltip"],
+.st-emotion-cache-16idsys p {
+    display: none !important;
+}
+
+/* Remove empty containers */
+.st-emotion-cache-16idsys:empty {
+    display: none !important;
+}
+
+.st-emotion-cache-r421ms:empty {
+    display: none !important;
+}
+
 /* Button styling */
 .stButton > button {
     width: 100%;
