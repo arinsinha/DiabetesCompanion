@@ -49,85 +49,82 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# Create two columns for layout
-col1, col2 = st.columns([2, 1])
+# Risk Assessment Section
+st.markdown("<div class='metric-container'>", unsafe_allow_html=True)
+st.header("📊 Risk Assessment Model")
 
-with col1:
-    st.markdown("<div class='metric-container'>", unsafe_allow_html=True)
-    st.header("📊 Risk Assessment Model")
+# Input form
+with st.form("prediction_form"):
+    features = {}
+    for feature in get_model_features():
+        features[feature] = st.number_input(
+            f"Enter {feature}",
+            min_value=0.0,
+            help=f"Input value for {feature}"
+        )
 
-    # Input form
-    with st.form("prediction_form"):
-        features = {}
-        for feature in get_model_features():
-            features[feature] = st.number_input(
-                f"Enter {feature}",
-                min_value=0.0,
-                help=f"Input value for {feature}"
-            )
+    submit_button = st.form_submit_button("Get Prediction")
 
-        submit_button = st.form_submit_button("Get Prediction")
+    if submit_button:
+        values = list(features.values())
+        is_valid, error_message = validate_input(values)
 
-        if submit_button:
-            values = list(features.values())
-            is_valid, error_message = validate_input(values)
+        if is_valid:
+            prediction, probability = st.session_state.predictor.predict(values)
 
-            if is_valid:
-                prediction, probability = st.session_state.predictor.predict(values)
-
-                st.markdown("### Results")
-                if prediction == 1:
-                    risk_percentage = probability * 100
-                    st.error(f"⚠️ High risk of diabetes (Probability: {risk_percentage:.1f}%)")
-                else:
-                    risk_percentage = (1 - probability) * 100
-                    st.success(f"✅ Low risk of diabetes (Probability: {risk_percentage:.1f}%)")
-
-                st.info(f"""
-                    **Prediction Details:**
-                    - Risk Level: {"High" if prediction == 1 else "Low"}
-                    - Confidence: {max(probability, 1-probability):.1%}
-
-                    Note: This is a preliminary screening tool. Please consult with a 
-                    healthcare professional for proper medical advice and diagnosis.
-                """)
+            st.markdown("### Results")
+            if prediction == 1:
+                risk_percentage = probability * 100
+                st.error(f"⚠️ High risk of diabetes (Probability: {risk_percentage:.1f}%)")
             else:
-                st.error(error_message)
-    st.markdown("</div>", unsafe_allow_html=True)
+                risk_percentage = (1 - probability) * 100
+                st.success(f"✅ Low risk of diabetes (Probability: {risk_percentage:.1f}%)")
 
-with col2:
-    st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
-    st.header("🤖 AI Health Assistant")
+            st.info(f"""
+                **Prediction Details:**
+                - Risk Level: {"High" if prediction == 1 else "Low"}
+                - Confidence: {max(probability, 1-probability):.1%}
 
-    if chatbot_available:
-        st.markdown("""
-            Get expert insights about diabetes prevention, management, 
-            and lifestyle recommendations. Ask any health-related questions below.
-        """)
+                Note: This is a preliminary screening tool. Please consult with a 
+                healthcare professional for proper medical advice and diagnosis.
+            """)
+        else:
+            st.error(error_message)
+st.markdown("</div>", unsafe_allow_html=True)
 
-        user_input = st.text_input("Your question:", placeholder="e.g., What are the early signs of diabetes?")
-        if st.button("Ask Assistant"):
-            if user_input:
-                with st.spinner("Getting response..."):
-                    response = st.session_state.chatbot.get_response(user_input)
-                    st.markdown(f"<div class='chat-response'>{response}</div>", unsafe_allow_html=True)
-    else:
-        st.warning("""
-            The AI Health Assistant is currently unavailable. 
-            Please ask an administrator to configure the Gemini API key.
-        """)
-    st.markdown("</div>", unsafe_allow_html=True)
+# AI Health Assistant Section
+st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
+st.header("💡 AI Health Assistant")
+
+if chatbot_available:
+    st.markdown("""
+        Get expert insights about diabetes prevention, management, 
+        and lifestyle recommendations. Ask any health-related questions below.
+    """)
+
+    user_input = st.text_input("Your question:", placeholder="e.g., What are the early signs of diabetes?")
+    if st.button("Ask Assistant"):
+        if user_input:
+            with st.spinner("Getting response..."):
+                response = st.session_state.chatbot.get_response(user_input)
+                st.markdown(f"<div class='chat-response'>{response}</div>", unsafe_allow_html=True)
+else:
+    st.warning("""
+        The AI Health Assistant is currently unavailable. 
+        Please ask an administrator to configure the Gemini API key.
+    """)
+st.markdown("</div>", unsafe_allow_html=True)
 
 # Model Performance Section
 st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
 st.header("🎯 Model Performance")
 if 'model_metrics' in st.session_state:
     metrics = st.session_state.model_metrics
-    col1, col2 = st.columns(2)
 
-    with col1:
+    metrics_cols = st.columns(2)
+    with metrics_cols[0]:
         st.metric("Best K Value", metrics['best_k'])
-    with col2:
+    with metrics_cols[1]:
         st.metric("Model Accuracy", f"{metrics['accuracy']:.2%}")
 
     k_values = range(1, 21)
