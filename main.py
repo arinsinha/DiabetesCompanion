@@ -9,7 +9,8 @@ from utils import load_data, create_feature_plot, get_model_features, validate_i
 st.set_page_config(
     page_title="Diabetes Prediction Assistant",
     page_icon="🏥",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="collapsed"
 )
 
 # Load custom CSS
@@ -35,18 +36,25 @@ try:
 except Exception as e:
     chatbot_available = False
 
-# Main header
-st.title("🏥 Diabetes Prediction Assistant")
+# Main header with enhanced description
 st.markdown("""
-    This application helps predict diabetes risk using machine learning and provides
-    expert information through an AI chatbot. Enter your health metrics below for a prediction.
-""")
+    <div class='main-header'>
+        <h1>🏥 Diabetes Prediction Assistant</h1>
+        <p style='font-size: 1.2rem; color: #666; max-width: 800px; margin: 0 auto;'>
+            Welcome to our advanced diabetes risk assessment platform. Using machine learning and AI, 
+            we analyze your health metrics to provide personalized risk assessments and expert insights. 
+            Our system combines a sophisticated prediction model with an AI health assistant to offer 
+            comprehensive diabetes management support and education.
+        </p>
+    </div>
+""", unsafe_allow_html=True)
 
 # Create two columns for layout
 col1, col2 = st.columns([2, 1])
 
 with col1:
-    st.header("📊 Prediction Model")
+    st.markdown("<div class='metric-container'>", unsafe_allow_html=True)
+    st.header("📊 Risk Assessment Model")
 
     # Input form
     with st.form("prediction_form"):
@@ -61,15 +69,12 @@ with col1:
         submit_button = st.form_submit_button("Get Prediction")
 
         if submit_button:
-            # Validate inputs
             values = list(features.values())
             is_valid, error_message = validate_input(values)
 
             if is_valid:
-                # Make prediction
                 prediction, probability = st.session_state.predictor.predict(values)
 
-                # Display results
                 st.markdown("### Results")
                 if prediction == 1:
                     risk_percentage = probability * 100
@@ -78,7 +83,6 @@ with col1:
                     risk_percentage = (1 - probability) * 100
                     st.success(f"✅ Low risk of diabetes (Probability: {risk_percentage:.1f}%)")
 
-                # Add prediction details
                 st.info(f"""
                     **Prediction Details:**
                     - Risk Level: {"High" if prediction == 1 else "Low"}
@@ -89,36 +93,33 @@ with col1:
                 """)
             else:
                 st.error(error_message)
+    st.markdown("</div>", unsafe_allow_html=True)
 
 with col2:
-    st.header("💬 AI Health Assistant")
+    st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
+    st.header("🤖 AI Health Assistant")
 
     if chatbot_available:
         st.markdown("""
-            Ask any questions about diabetes, its prevention, 
-            symptoms, or management.
+            Get expert insights about diabetes prevention, management, 
+            and lifestyle recommendations. Ask any health-related questions below.
         """)
 
-        # Chat interface
-        user_input = st.text_input("Your question:")
-        if st.button("Ask"):
+        user_input = st.text_input("Your question:", placeholder="e.g., What are the early signs of diabetes?")
+        if st.button("Ask Assistant"):
             if user_input:
-                response = st.session_state.chatbot.get_response(user_input)
-                st.markdown(f"**Response:**\n{response}")
+                with st.spinner("Getting response..."):
+                    response = st.session_state.chatbot.get_response(user_input)
+                    st.markdown(f"<div class='chat-response'>{response}</div>", unsafe_allow_html=True)
     else:
         st.warning("""
             The AI Health Assistant is currently unavailable. 
-            Please ask an administrator to configure the Gemini API key to enable this feature.
+            Please ask an administrator to configure the Gemini API key.
         """)
-        if st.button("Configure Gemini API"):
-            st.info("""
-                To enable the AI chatbot:
-                1. Go to https://makersuite.google.com/app/apikey
-                2. Create a new API key
-                3. Set up the key in Streamlit's secrets management system
-            """)
+    st.markdown("</div>", unsafe_allow_html=True)
 
-# Add this before the feature visualization section
+# Model Performance Section
+st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
 st.header("🎯 Model Performance")
 if 'model_metrics' in st.session_state:
     metrics = st.session_state.model_metrics
@@ -129,7 +130,6 @@ if 'model_metrics' in st.session_state:
     with col2:
         st.metric("Model Accuracy", f"{metrics['accuracy']:.2%}")
 
-    # Plot K values vs Accuracy
     k_values = range(1, 21)
     k_accuracy_df = pd.DataFrame({
         'K Value': k_values,
@@ -142,23 +142,25 @@ if 'model_metrics' in st.session_state:
     fig.add_vline(x=metrics['best_k'], line_dash="dash",
                   annotation_text=f"Best K = {metrics['best_k']}")
     st.plotly_chart(fig, use_container_width=True)
-
+st.markdown("</div>", unsafe_allow_html=True)
 
 # Data Visualization Section
+st.markdown("<div class='chart-container'>", unsafe_allow_html=True)
 st.header("📈 Data Insights")
 data = load_data()
 
-# Feature selection for visualization
 selected_feature = st.selectbox(
     "Select feature to visualize:",
     get_model_features()
 )
 
-# Display distribution plot
 st.plotly_chart(create_feature_plot(data, selected_feature), use_container_width=True)
+st.markdown("</div>", unsafe_allow_html=True)
 
 # Footer
 st.markdown("""
-    ---
-    Made with ❤️ by Your Name | Data source: PIMA Indians Diabetes Dataset
-""")
+    <div class='footer'>
+        <p>Made with ❤️ by Arin Ved Sinha | Data source: PIMA Indians Diabetes Dataset</p>
+        <p style='font-size: 0.9rem; color: #888;'>© 2024 Diabetes Prediction Assistant. All rights reserved.</p>
+    </div>
+""", unsafe_allow_html=True)

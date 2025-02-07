@@ -1,54 +1,119 @@
 /* Global styles */
 .stApp {
     font-family: 'Source Sans Pro', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
 }
 
-/* Custom container styling */
+/* Main container styling */
 .main-container {
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 2rem;
-    border-radius: 10px;
-    background: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Header styling */
+.main-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.main-header h1 {
+    color: #2E86C1;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
 }
 
 /* Form styling */
 .stTextInput, .stNumberInput {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 /* Button styling */
-.stButton>button {
+.stButton > button {
     width: 100%;
-    border-radius: 5px;
+    border-radius: 8px;
     background-color: #2E86C1;
     color: white;
     font-weight: 600;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.stButton > button:hover {
+    background-color: #1f618d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 /* Results container */
 .results-container {
     padding: 1.5rem;
-    border-radius: 8px;
-    background: #F8F9FA;
-    margin-top: 2rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    margin: 2rem 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
 /* Chat container */
 .chat-container {
     border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-top: 2rem;
-    height: 400px;
-    overflow-y: auto;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-/* Charts */
-.chart-container {
-    margin: 2rem 0;
+.chat-message {
     padding: 1rem;
-    background: #fff;
+    margin: 0.5rem 0;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    background: #f8f9fa;
+}
+
+.chat-response {
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: 8px;
+    background: #e3f2fd;
+    border-left: 4px solid #2E86C1;
+}
+
+/* Charts and visualizations */
+.chart-container {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Metrics and KPIs */
+.metric-container {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    text-align: center;
+}
+
+/* Footer styling */
+.footer {
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 3rem;
+    border-top: 1px solid #e0e0e0;
+    color: #666;
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+    .main-container {
+        padding: 1rem;
+    }
+
+    .main-header h1 {
+        font-size: 2rem;
+    }
 }
