@@ -32,7 +32,7 @@
 
 /* Section styling */
 .section-container {
-    margin: 0;
+    margin: 2rem 0;
     padding: 2rem;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
@@ -40,16 +40,11 @@
     backdrop-filter: blur(10px);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.8);
 }
 
-.section-container::after {
-    content: '';
-    position: absolute;
-    bottom: -1rem;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: rgba(0, 0, 0, 0.1);
+.section-container:last-child {
+    border-bottom: none;
 }
 
 .section-container:hover {
