@@ -72,16 +72,7 @@
 }
 
 /* Button styling */
-form {
-    position: relative;
-    padding-bottom: 60px;
-}
-
 .stButton {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,7 +80,7 @@ form {
 }
 
 .stButton > button {
-    width: 200px;
+    width: 50%;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -104,10 +95,10 @@ form {
 }
 
 .stButton > button:hover {
-    background: linear-gradient(135deg, #8E44AD 0%, #6C3483 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 15px rgba(155, 89, 182, 0.4);
-    color: white;
+    background: linear-gradient(#8E44AD 0%, #270533 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(155, 89, 182, 0.3);
+    color: white; /* Corrected */
 }
 
 
@@ -201,3 +192,4 @@ div[data-testid="stVerticalBlock"] > div.section-container + div:empty {
     padding: 0 !important;
     height: 0 !important;
 }
+
