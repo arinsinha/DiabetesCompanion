@@ -1,4 +1,4 @@
-# DiabetesCompanion
+# Diabetes Prediction Assistant
 
 ## Overview
 DiabetesCompanion is a machine learning-powered web application designed to predict diabetes risk based on user inputs. The application utilizes the **Pima Indian Diabetes Dataset** to generate predictions and provide insights into potential diabetes risks.
